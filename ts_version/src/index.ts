@@ -5,26 +5,14 @@ const drawLine = (ctx: CanvasRenderingContext2D, p1: Point, p2: Point) => {
   ctx.stroke();
 };
 
-var c1: Circle = {
-  radius: 80,
-  velocity: { x: 10, y: 7.5 },
-  center: { x: 0, y: 0 },
-};
-var c2: Circle = {
-  radius: 60,
-  velocity: { x: -5, y: 2.5 },
-  center: { x: 0, y: 0 },
-};
+var circles = getRandomCircles(5);
 
 const mainLoop = (ctx: CanvasRenderingContext2D) => {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-  updateCircle(c1);
-  updateCircle(c2);
+  updateFullCircles(circles);
 
-  const lines = getLinesFromFn(
-    (x, y) => getCircleFunction(c1)(x, y) + getCircleFunction(c2)(x, y)
-  );
+  const lines = getLinesFromFn(getFullFunction(circles));
   lines.forEach((l) => {
     drawLine(ctx, l[0], l[1]);
   });
