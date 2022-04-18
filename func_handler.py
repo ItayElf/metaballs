@@ -2,6 +2,7 @@ from typing import Callable
 
 from classes import Point
 
+# WIDTH, HEIGHT = 1919, 1079
 WIDTH, HEIGHT = 641, 641
 
 assert WIDTH % 2 == 1 and HEIGHT % 2 == 1
@@ -11,7 +12,10 @@ fn_type = Callable[[float, float], float]
 
 def calc_fn(fn: fn_type, x: float, y: float) -> float:
     """Calculates a function with the screen x and y as if they were on an axis"""
-    return fn(x - WIDTH // 2, y - HEIGHT // 2)
+    try:
+        return fn(x - WIDTH // 2, y - HEIGHT // 2)
+    except ZeroDivisionError:
+        return 1
 
 
 def calc_square(fn: fn_type, x_top: int, y_top: int) -> tuple[float, float, float, float]:
@@ -90,7 +94,7 @@ def get_lines_from_square(square: tuple[float, float, float, float], x_top: int,
     elif sum(bool_square) == 3:
         idx = bool_square.index(False)
         p = _generate_point_of_square(x_top, y_top, idx)
-        next_idx = idx + 1 % 4
+        next_idx = (idx + 1) % 4
         next_p = _generate_point_of_square(x_top, y_top, next_idx)
         prev_p = _generate_point_of_square(x_top, y_top, idx - 1)
         return [
@@ -99,3 +103,13 @@ def get_lines_from_square(square: tuple[float, float, float, float], x_top: int,
                 _get_line_point(prev_p, p, square[idx - 1], square[idx])
             )
         ]
+
+
+def get_lines_from_fn(fn: fn_type) -> list[tuple[Point, Point]]:
+    """Marches through the screen and collects the lines needed to be drawn"""
+    lst = []
+    for x in range(WIDTH - 1):
+        for y in range(HEIGHT - 1):
+            sqr = calc_square(fn, x, y)
+            lst += get_lines_from_square(sqr, x, y)
+    return lst
