@@ -3,7 +3,7 @@ from typing import Callable
 from classes import Point
 
 # WIDTH, HEIGHT = 1919, 1079
-WIDTH, HEIGHT = 641, 641
+WIDTH, HEIGHT = 321, 321
 
 assert WIDTH % 2 == 1 and HEIGHT % 2 == 1
 
