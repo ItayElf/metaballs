@@ -1,11 +1,12 @@
 import pygame
 from pygame.locals import QUIT
 
+from func_handler import WIDTH, HEIGHT
+
 pygame.init()
 fps = 60
 fps_clock = pygame.time.Clock()
-w, h = 640, 480
-screen = pygame.display.set_mode((w, h))
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
 def main():
