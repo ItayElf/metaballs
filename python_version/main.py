@@ -22,8 +22,8 @@ def main():
     # fn = lambda x, y: 90 / ((x ** 2 + y ** 2) ** .5)
     # fn2 = lambda x, y: 70 / (((x - 300) ** 2 + y ** 2) ** .5)
     # fn3 = lambda x, y: fn(x, y) + fn2(x, y)
-    c = Circle(40, Point(0, 0), Point(20, 20))
-    c2 = Circle(30, Point(0, 0), Point(-10, 5))
+    c = Circle(20, Point(0, 0), Point(20, 20))
+    c2 = Circle(15, Point(0, 0), Point(-10, 5))
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     while True:
         screen.fill((0, 0, 0))
