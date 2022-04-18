@@ -5,17 +5,29 @@ const drawLine = (ctx: CanvasRenderingContext2D, p1: Point, p2: Point) => {
   ctx.stroke();
 };
 
+var c1: Circle = {
+  radius: 80,
+  velocity: { x: 10, y: 7.5 },
+  center: { x: 0, y: 0 },
+};
+var c2: Circle = {
+  radius: 60,
+  velocity: { x: -5, y: 2.5 },
+  center: { x: 0, y: 0 },
+};
+
 const mainLoop = (ctx: CanvasRenderingContext2D) => {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
-  const fn = (x: number, y: number) => 90 / Math.sqrt(x * x + y * y);
-  const fn2 = (x: number, y: number) =>
-    70 / Math.sqrt(Math.pow(x - 300, 2) + y * y);
-  const lines = getLinesFromFn((x, y) => fn(x, y) + fn2(x, y));
+  updateCircle(c1);
+  updateCircle(c2);
+
+  const lines = getLinesFromFn(
+    (x, y) => getCircleFunction(c1)(x, y) + getCircleFunction(c2)(x, y)
+  );
   lines.forEach((l) => {
     drawLine(ctx, l[0], l[1]);
   });
-  //   drawLine(ctx, { x: 0.5, y: 0.5 }, { x: 600.3, y: 545.2358 });
 };
 
 const main = () => {
@@ -32,7 +44,7 @@ const main = () => {
 
   setInterval(() => {
     mainLoop(ctx);
-  }, 333); // 30 fps
+  }, 33);
 };
 
 main();
