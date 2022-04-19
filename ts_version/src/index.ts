@@ -1,5 +1,7 @@
 const drawLine = (ctx: CanvasRenderingContext2D, p1: Point, p2: Point) => {
   ctx.beginPath();
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 4;
   ctx.moveTo(p1.x, p1.y);
   ctx.lineTo(p2.x, p2.y);
   ctx.stroke();
@@ -9,13 +11,26 @@ var circles = getRandomCircles(5);
 
 const mainLoop = (ctx: CanvasRenderingContext2D) => {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  ctx.fillStyle = "#121212";
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
   updateFullCircles(circles);
 
+  ctx.save();
+
   const lines = getLinesFromFn(getFullFunction(circles));
-  lines.forEach((l) => {
-    drawLine(ctx, l[0], l[1]);
-  });
+  for (let i = lines.length - 1; i >= 0; i--) {
+    drawLine(ctx, lines[i][0], lines[i][1]);
+  }
+
+  //   const gradient = ctx.createLinearGradient(0, 0, WIDTH, 0);
+  //   gradient.addColorStop(0, "rgba(255, 0, 0, 1)");
+  //   gradient.addColorStop(1, "rgba(0, 255, 0, 1.0)");
+  //   ctx.globalCompositeOperation = "destination-out";
+  //   ctx.fillStyle = gradient;
+  //   ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+  ctx.restore();
 };
 
 const main = () => {
@@ -32,7 +47,7 @@ const main = () => {
 
   setInterval(() => {
     mainLoop(ctx);
-  }, 33);
+  }, 167);
 };
 
 main();

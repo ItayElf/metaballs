@@ -45,8 +45,8 @@ const getRandomCircles = (circles: number) => {
         y: getRandom((-1 * HEIGHT) / 2 + 2 * radius, HEIGHT / 2 - 2 * radius),
       },
       velocity: {
-        x: getRandom(-15, 15),
-        y: getRandom(-15, 15),
+        x: getRandom(-30, 30),
+        y: getRandom(-30, 30),
       },
     } as Circle;
   });

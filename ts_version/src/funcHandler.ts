@@ -1,4 +1,4 @@
-const [WIDTH, HEIGHT] = [641, 641];
+const [WIDTH, HEIGHT] = [1024, (1024 * 9) / 16];
 
 type fnType = (x: number, y: number) => number;
 
@@ -105,8 +105,8 @@ const getLinesFromSquare = (square: number[], xTop: number, yTop: number) => {
 
 const getLinesFromFn = (fn: fnType) => {
   const lst: Point[][] = [];
-  for (let x = 0; x < WIDTH; x++) {
-    for (let y = 0; y < HEIGHT; y++) {
+  for (let x = WIDTH - 1; x >= 0; x--) {
+    for (let y = HEIGHT - 1; y >= 0; y--) {
       const sqr = calcSquare(fn, x, y);
       const res = getLinesFromSquare(sqr, x, y);
       res.forEach((r) => lst.push(r));
